@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <!-- 파비콘 설정 -->
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <!-- Style 시트 연결 -->
+    <!--<link href="sign_up.css" rel="stylesheet" />-->
+    <style type="text/css">
+      @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
+      body {
+          background-image: url("./img/main_background.png");
+          background-size: cover;
+      }
+
+      .font {
+          font-family: "Bagel Fat One", cursive;
+          background-color: rgba(0, 0, 0, 0);
+          font-size: 30px;
+          /*border: none;*/
+      }
+
+      #header{
+          text-align: center;
+      }
+
+      /* 박스 */
+      #info_basic{
+          position: relative;
+          margin : 0px auto;
+          display: block;
+          width: 80%;
+          height: 120px;
+
+          box-sizing: border-box;
+          background-color: rgba(0, 0, 0, 0);
+          vertical-align: top;
+      }
+
+
+
+      /* 부제목 */
+      #info_basic b {
+          position: relative;
+          font-size: 20px;
+          font-family: sans-serif;
+          margin-top : 10px;
+          margin-bottom : 10px;
+          margin-left : 10px;
+      }
+
+      /* 입력박스 */
+      #info_basic input {
+          display: block;
+          position: relative;
+          width: 97%;
+          margin-left: 1%;
+          margin-top: 15px;
+          margin-right: 1%;
+          height: 46px;
+          text-align:left;
+          vertical-align: middle;
+          font-size: 20px;
+          border-radius: 8px; 
+          padding-left: 10px;
+          background-color: rgba(255, 255, 255, 0.815);
+          border: 2px solid black;
+      }
+
+      .birth{
+          
+      }
+
+      ul{
+          list-style: none;
+          
+      }
+      li {
+          float: left;
+          margin-right: 50px;
+      }
+      li label{
+          display: inline-block;
+          font-family: sans-serif;
+      }
+      /* 버튼 */
+      .botton {
+          position:relative;
+          height: 50px;
+          width: 40%;
+          margin-left: 30%;
+          margin-right: 30%;
+          margin-top: 10px;
+          margin-bottom: 30px;
+          font-family: sans-serif;
+          font-size: 20px;
+          border: 2px solid black;
+          border-radius: 8px; 
+          background-color: rgb(255, 255, 255);
+      }
+
+    </style>
+  </head>
+
+
+  <body>
+    <div id="wrap" class="wrapper">
+      <form method="post" name="join" id="join">
+        <!--타이틀-->
+        <!--<header>
+          <div id="header">
+            <span><h1 class="font">청바지</h1></span>
+          </div>
+        </header>-->
+        <header>
+          <div id="header">
+          <button type="botton" class="font" style="height: 100px;" onClick="location.href='index.html'">
+            <h1 style="display: flex;">청바지</h1>
+          </button>
+          </div>
+        </header>
+
+
+        <div id="container">
+<!--
+          <div id="info_basic">
+            <p>아이디</p>
+            <input type="text" id="userid" required placeholder="아이디 입력(6~20자)" />
+          </div>
+-->
+          <!--이름-->
+          <div id="info_basic">
+            <b>이름</b>
+            <input type="text" id="username" required placeholder="홍길동" />
+          </div>
+
+          <!--전화번호-->
+          <div id="info_basic">
+            <b>전화번호</b>
+            <input type="tel" id="usertel" required placeholder="010-1234-5678" />
+          </div>
+
+          <!--비밀번호-->
+          <div id="info_basic">
+            <b>비밀번호</b>
+            <input type="password" id="password" required placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"/>
+          </div>
+
+          <div id="info_basic">
+            <b>생년월일</b>
+            <input
+              type="date"
+              id="userbdate"
+              required
+              min="1900-01-01"
+              max="1970-01-01"
+              class="birth"
+            />
+          </div>
+
+          <div id="info_basic">
+          <b>성별</b>
+            <ul>
+              <li>
+                <label for="female">여성</label>
+                <input id="female" name="usersex" type="radio" value="strawberry" />
+              </li>
+              <li>
+                <label for="male">남성</label>
+                <input id="male" name="usersex" type="radio" value="grape" />
+              </li>
+            </ul>
+          </div>
+
+          <!--
+          <div>
+            <label for="useremail">이메일</label>
+            <input
+              type="email"
+              id="useremail"
+              required
+              placeholder="jeans@naver.com"
+            />
+          </div>
+
+        </div>
+      </form>
+    </div>
+        
+
+
+        <fieldset>
+          <legend>약관동의</legend>
+          <ul>
+            <li>
+              <label for="apple">안녕하세요</label>
+              <input id="apple" type="checkbox" value="apple" />
+            </li>
+            <li>
+              <label for="orange">네</label>
+              <input id="orange" type="checkbox" value="orange" />
+            </li>
+            <li>
+              <label for="banana">안녕하냐고요</label>
+              <input id="banana" type="checkbox" value="banana" />
+            </li>
+          </ul>
+        </fieldset>
+      -->
+
+      <input type="submit" value="회원가입" class="botton"/>
+    </form>
+  </body>
+</html>
