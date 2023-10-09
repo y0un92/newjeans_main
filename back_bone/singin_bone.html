@@ -4,103 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>로그인</title>
-
-  <style type="text/css">
-    @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
-      .mainbtn {
-          background-color: rgba(0, 0, 0, 0);
-          border: none;
-          font-family: "Bagel Fat One", cursive;
-          font-size: 60px;
-          color:rgb(139, 208, 238);
-          -webkit-text-stroke: 3px rgb(0, 0, 0);
-          z-index: 1;
-          /*line-height: 100px;
-          height: 100px;*/
-      }
-      .mainbtn:hover {
-        color: rgb(109, 196, 234);
-      }
-      #header{
-        font-size: 40px;
-        margin-bottom: 30px;
-      }
-      h1, h3{
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-      body {
-          background-image: url("./img/main_background.png");
-          background-size: cover;
-          background-size: 1920px 1080px;
-          font-family:sans-serif; 
-          text-align: center;
-          align-items: center;
-      }
-      .container{
-        border: 3px solid black;
-        border-radius: 15px;
-        margin: 20px;
-        height: 1040px;
-        min-width: 800px;
-        background-color: white; 
-        padding: 2%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      #video{
-        border: 3px solid black;
-        border-radius: 15px;
-        transform: scaleX(-1); /* X 축 방향으로 반전 */
-        width: 768px;
-        height: 576px;
-      }
-      .botton {
-          position:relative;
-          height: 70px;
-          width: 60%;
-          margin-top: 30px;
-          font-size: 35px;
-          font-weight: bold;
-          border: 3px solid black;
-          border-radius: 10px; 
-          background-color: rgb(255, 255, 255);
-          max-width: 576px;
-      }
-      .botton:hover {
-            background-color: rgba(84, 106, 83, 0.554);
-      }
-      #countdown{
-          font-size: 30px;
-          font-weight: 600;
-          margin-top: 20px;
-          color: rgba(84, 106, 83, 0.554);
-      }
-  </style>
 </head>
 <body>
+  <h1>로그인</h1>
 
-  <div class="container">
+  <video id="video" width="1280" height="960" autoplay></video>
+  <button id="captureButton"> 얼굴 인식하기 </button>
+  <p id="info"></p>
 
-    <header>
-      <!-- 메인 홈 버튼 -->
-      <button type="botton" class="mainbtn" onClick="location.href='index.html'">
-        <h1>청바지</h1>
-      </button>
-
-      <div id="header">
-        <h3>로그인</h3>
-      </div>
-    </header>
-
-    <video id="video" width="1280" height="960" autoplay></video>
-    <button id="captureButton" class="botton"> 얼굴 인식하기 </button>
-    <p id="countdown"> </p>
-
-  </div>
-
-  <!------------------------------ 스크립트 ------------------------------>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
@@ -122,7 +33,7 @@
 
     const video = document.getElementById('video');
     const captureButton = document.getElementById('captureButton');
-    const info = document.getElementById('countdown');
+    const info = document.getElementById('info');
     let captureCount = 0;
 
     // 웹캠을 위한 사용자 미디어 가져오기
@@ -136,7 +47,6 @@
 
     // 캡처 버튼 클릭 이벤트
     captureButton.addEventListener('click', () => {
-      info.innerText = ' 잠시만 기다려 주세요 . . . ';
       // 이미 캡처한 경우
       if (captureCount >= 1) {
         console.log('로그인 시도');
@@ -172,6 +82,5 @@
       });
     });
   </script>
-
 </body>
 </html>

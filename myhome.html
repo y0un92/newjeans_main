@@ -3,56 +3,515 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>My Home</title>
     <!-- 파비콘 설정 -->
-    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="shortcut icon" href="./img/favicon.ico"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
     <style type="text/css">
       @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
-      .font {
+      .mainbtn {
+          position:absolute;
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
+          top: -30px;
+          left: 60px;
+          margin-top: 0;
           font-family: "Bagel Fat One", cursive;
-          font-size: 150px;
-          color:rgb(167, 233, 246);
-          -webkit-text-stroke: 5px rgb(0, 0, 0);
-          /* font-size: 100px; */
+          font-size: 40px;
+          color:rgb(139, 208, 238);
+          -webkit-text-stroke: 2px rgb(0, 0, 0);
+          z-index: 1;
       }
-  
+      .mainbtn:hover {
+        color: rgb(109, 196, 234);
+      }
+
       body {
           background-image: url("./img/main_background.png");
           background-size: cover;
           background-size: 1920px 1080px;
+          font-family: Arial, sans-serif;
+      }
+      .container{
+        display: flex; /* 가로로 나란히 배치하기 위해 flex를 사용 */
+        border: 3px solid black;
+        border-radius: 15px;
+        margin: 20px;
+        height: 1040px;
+        background-color: white; /* 배경색 설정 (선택 사항) */
+      }
+
+      /**************************************************************************/
+      /* 프로필 디자인 */
+      /**************************************************************************/
+      /* 프로필 디자인 */
+      /**************************************************************************/
+      .profile-container{
+        position: relative;
+        /*border: 1px solid rgb(17, 0, 255);*/
+        display: flex; /* 가운데 정렬을 위해 flex 사용 */
+        flex-direction: column;
+        justify-content: center; 
+        flex: 2;
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-top: 30px;
+        /*padding-bottom: auto;*/
+      }
+      .basic_info{
+        display: flex; /* 가운데 정렬을 위해 flex 사용 */
+        justify-content: space-between;
+        justify-content: center; /* 가로 가운데 정렬 */
+      }
+      .other_info{
+        display: flex; /* 가운데 정렬을 위해 flex 사용 */
+        flex-direction: column;
+        justify-content: center; /* 가로 가운데 정렬 */
+      }
+      .my_pic{
+        border: 3px solid black;
+        max-width: 50%; /* 최대 너비를 100%로 설정 */
+        height: auto; /* 높이 자동 조절 (비율 유지) */
+        text-align: center; /* 내부 내용을 가로로 가운데 정렬 */
+        margin: 0% auto;
+      }
+      .name{
+        text-align: center;
+        font-size: 80px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+      .gender, .age{
+        font-size: 50px;
+        flex-basis: 50%;
+        text-align: center;
+        font-weight: bold;
+      }
+      .address_container, .hobby_container{
+        padding-top: 50px;
+        font-size: 40px;
+        font-weight: bold;
+      }
+
+
+      /**************************************************************************/
+      /* 달력 디자인 */
+      /**************************************************************************/
+      /* 달력 디자인 */
+      /**************************************************************************/
+      .calendar-container{
+        position: relative;
+        /*border: 1px solid rgb(255, 0, 0);*/
+        flex: 3;
+        padding: 10px; /* 여백 설정 (선택 사항) */
+        min-width: 45%;
+        display: inline-flex;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+      } 
+      .cal_top{
+        /*position:absolute;*/
+        display: flex;
+        text-align: center;
+        font-size: 30px;
+        /*border: 1px solid rgb(17, 0, 255);*/
+      }
+      .cal{
+        text-align: center; 
+      }
+      #currentMonth{
+        flex: 1;
+        position: relative;
+        flex-basis: 30%;
+      }
+      .calendar-container button{
+        flex: 1;
+        padding: 10px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        font-size: 80px;
+        z-index: 2;
+      }
+      /*
+      #movePrevMonth{
+        position: relative;
+        right: 5px;
+      }
+      #moveNextMonth{
+        position: relative;
+        left: 5px;
+      }
+      */
+      table.calendar{
+          /*border: 2px solid rgb(255, 0, 0);*/
+          display: inline-table;
+          width: 100%;
+          border-collapse: collapse;
+          table-layout: fixed; /* 테이블의 레이아웃을 고정합니다. */
+      }
+      table.calendar td{
+          text-align: left;
+          vertical-align: top;
+          border: 2px solid rgb(0, 0, 0);
+          /*width: 85px;
+          height: 70px;*/
+          width: 14%;
+          width: 100px;
+          font-size: 20px;
+          
+      }
+      .square{
+          border-left: 3px solid rgb(255, 255, 255);
+          border-right: 3px solid rgb(255, 255, 255);
+          z-index: 3;
+      }
+      .cal-day{
+          padding-top: 5px;
+          padding-left: 7px;
+          font-size: 20px;
+      }
+      .cal-schedule{
+          white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 설정 */
+          overflow: hidden; /* 텍스트가 요소를 넘어갈 때 숨김 처리 */
+          text-overflow: ellipsis; /* 텍스트를 "..."으로 대체 */
+          /*width: 100px;*/
+          max-width: 80%;
+          padding-top: 5px;
+          padding-left: 7px;
+      }
+
+      .schedule{
+        display: flex; /* 가운데 정렬을 위해 flex 사용 */
+        justify-content: flex-start;
+        font-size: 20px;
+        height: 20%;
+        /*border: 1px solid black;*/
+        margin: 10px;
+      }
+      .schedule span{
+        font-size: 30px;
+        font-weight: bold;
+        padding: 10px 10px;
+      }
+      .today {
+          border: 5px solid rgba(255, 0, 0, 0.722) !important;
+          cursor: pointer;
+          width: 20px;
+          border-radius: 20px;
+      }
+
+      .empty{ /* 그냥 테블릿 사이즈의 박스 */
+        border: 2px solid black;
+        left: 0px;
+        top: 0px;
       }
   
-      .btn {
-      position:absolute;
-      background-color: rgba(0, 0, 0, 0);
-      border: none;
-      }
-  
-      .imgsize{
-          height: 600px;
-          width: 600px;
-      }
-  
-      /* 버튼 */
-      .botton {
-      position:absolute;
-      height: 60px;
-      width: 200px;
-      font-family: sans-serif;
-      font-size: 30px;
-      border: 2px solid black;
-      border-radius: 16px; 
-      background-color: rgb(255, 255, 255);
-      font-weight: bolder;
-      }
-  </style>
+
+    </style>
+
   </head>
   <body>
-    
+
+    <!-- 메인 홈 버튼 -->
+    <button type="botton" class="mainbtn" onClick="location.href='index.html'">
+      <h1>청바지</h1>
+    </button>
+
+    <div class="container">
+
+      <!----------------------------- 프로필 ----------------------------->
+      <!----------------------------- 프로필 ----------------------------->
+      <div class="profile-container">
+        <img src="./img/profile_pic.jpg" class="my_pic" alt="내 사진" />
+        <h2 class="name">김이박최순자</h2>
+        <div class="basic_info">
+          <span class="age">87세</span>
+          <span class="gender">여성</span>
+        </div>
+        <div class="other_info">
+          <div class="address_container">
+            <span>주소 : </span>
+            <span class="address"></span>
+          </div>
+          <div class="hobby_container">
+            <span>취미 : </span>
+            <span class="hobby"></span>
+          </div>
+        </div>
+      </div>
+
+      <!----------------------------- 달력 ----------------------------->
+      <!----------------------------- 달력 ----------------------------->
+      <div class="calendar-container">
+        <div class="cal_top">
+          <button id="movePrevMonth">⬅️</button>
+          <h1 id="currentMonth">월/년</h1>
+          <button id="moveNextMonth">➡️</button>
+        </div>
+        <div id="cal_tab" class="cal"> </div>
+        <div class="schedule">
+          <span>✨</span>
+          <span class="sch_time">오전 10시</span>
+          <span class="sch_cont">금희와 점심 약속</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty" style="position: absolute; width: 1920px; height: 1080px; top:0px;"></div>
 
 
-
-
-
+    <!----------------------------- 달력 스크립트 ---------------------------->
+    <!----------------------------- 달력 스크립트 ---------------------------->
+    <!---------------------!!!! 아직 데이터 처리 못 함..!!!!-------------------->
+    <script type="text/javascript">
+      var today = null;
+      var year = null;
+      var month = null;
+      var firstDay = null;
+      var lastDay = null;
+      var $tdDay = null;
+      var $tdSche = null;
+      var jsonData = null;
+      $(document).ready(function() {
+          drawCalendar();
+          initDate();
+          drawDays();
+          drawSche();
+          $("#movePrevMonth").on("click", function(){movePrevMonth();});
+          $("#moveNextMonth").on("click", function(){moveNextMonth();});
+      });
+  
+      // 달력 컨테이너와 이전/다음 달 버튼
+      const calendarContainer = document.getElementById("calendar");
+      const prevMonthBtn = document.getElementById("prevMonthBtn");
+      const nextMonthBtn = document.getElementById("nextMonthBtn");
+      
+      //Calendar 그리기
+      function drawCalendar(){
+          var setTableHTML = "";  // setTableHTML 변수는 달력의 HTML 템플릿을 저장하기 위한 문자열
+          setTableHTML+='<table class="calendar">';  // CSS 클래스를 지정
+  
+              // 요일 헤더 행(<tr>)을 추가합니다. 일요일(SUN)부터 토요일(SAT)까지의 요일을 나타내는 <th> 요소들을 생성
+          setTableHTML+='<tr style="font-size:30px; height: 60px; border-bottom: 5px solid black">  <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>  </tr>';
+          
+          // 6개의 주를 반복하면서 각 주에 해당하는 <tr> 요소를 추가합니다. <tr height="100">를 사용하여 각 주의 높이를 설정합니다.
+          for(var i=0;i<6;i++){
+              setTableHTML+='<tr height="90" class="square">';
+                  // 각 주에서 7일(요일)을 반복하면서 날짜 칸(<td>)을 추가
+                  // 각 날짜 칸 안에는 두 개의 <div> 요소가 포함
+              for(var j=0;j<7;j++){
+                      // style -> 텍스트가 한 줄로 표시되도록 설정, 텍스트가 요소를 넘어갈 때 숨김 처리, 텍스트를 "..."으로 대체
+                  setTableHTML+='<td>';
+  
+                      // 날짜를 표시하는 <div class="cal-day">
+                  setTableHTML+='    <div class="cal-day"></div>';
+  
+                      // 일정을 표시하는 <div class="cal-schedule">
+                  setTableHTML+='    <div class="cal-schedule"></div>';
+                  
+                  setTableHTML+='</td>';
+              }
+              setTableHTML+='</tr>';
+          }
+          setTableHTML+='</table>';
+          // 닫는 태그로 <td>, <tr>, <table>을 순서대로 닫아서 테이블을 완성
+  
+          // setTableHTML 문자열을 가지고 있는 HTML 코드를 id가 "cal_tab"인 요소에 삽입합니다. 이렇게 하면 달력이 표시됩니다.
+          $("#cal_tab").html(setTableHTML);
+      }
+      
+      //날짜 초기화
+      function initDate(){
+          $tdDay = $("td div.cal-day")
+          $tdSche = $("td div.cal-schedule")
+          dayCount = 0;
+          today = new Date();
+          year = today.getFullYear();
+          month = today.getMonth()+1;
+          if(month < 10){month = "0"+month;}
+          firstDay = new Date(year,month-1,1);
+          lastDay = new Date(year,month,0);
+      }
+      
+      //calendar 날짜표시
+      function drawDays(){
+          document.getElementById("currentMonth").textContent = `${year}년 ${month}월`;
+  
+          for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
+              $tdDay.eq(i).text(++dayCount);
+  
+              // Add a class to today's date
+              if (year == today.getFullYear() && month == today.getMonth() + 1 && dayCount == today.getDate()) {
+                  $tdDay.eq(i).addClass('today');
+              }
+          }
+          for(var i=0;i<42;i+=7){
+              $tdDay.eq(i).css("color","red");
+          }
+          for(var i=6;i<42;i+=7){
+              $tdDay.eq(i).css("color","blue");
+          }
+  
+          // Add click event to today's date
+          $(".today").click(function() {
+              // Remove red border from other cells
+              $(".today").removeClass('today');
+              // Add red border to the clicked cell
+              $(this).addClass('today');
+          });
+      }
+      
+      //calendar 월 이동
+      function movePrevMonth(){
+          month--;
+          if(month<=0){
+              month=12;
+              year--;
+          }
+          if(month<10){
+              month=String("0"+month);
+          }
+          getNewInfo();
+          }
+      
+      function moveNextMonth(){
+          month++;
+          if(month>12){
+              month=1;
+              year++;
+          }
+          if(month<10){
+              month=String("0"+month);
+          }
+          getNewInfo();
+      }
+      
+      //정보갱신
+      function getNewInfo(){
+          for(var i=0;i<42;i++){
+              $tdDay.eq(i).text("");
+              $tdSche.eq(i).text("");
+              $tdDay.eq(i).removeClass('today');  // Remove the 'today' class
+          }
+          dayCount=0;
+          firstDay = new Date(year,month-1,1);
+          lastDay = new Date(year,month,0);
+          drawDays();
+          drawSche();
+      }
+      
+  
+      //스케줄 그리기
+      function drawSche(){
+          setData();
+          var dateMatch = null;  // 변수 dateMatch 초기화
+  
+          // firstDay.getDay()는 해당 월의 첫 번째 날의 요일을 반환합니다.
+          // 따라서 반복문은 해당 월의 첫 번째 날부터 마지막 날까지 실행됩니다.
+          for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
+              var txt = ""; // 변수 txt 초기화
+  
+              txt =jsonData[year]; // 연도에 대한 데이터를 가져옵니다.
+              if(txt){
+                  txt = jsonData[year][month]; // 월에 대한 데이터를 가져옵니다.
+                  if(txt){
+                      //var outputContainer = document.getElementById('textContain');
+                      txt = jsonData[year][month][i]; // 날짜에 대한 데이터를 가져옵니다.
+  
+                      // dateMatch 변수는 각 날짜의 인덱스를 나타냅니다.
+                      // 날짜의 인덱스는 첫 번째 날부터 시작하며, firstDay.getDay()를 더하고 1을 뺍니다.
+                      dateMatch = firstDay.getDay() + i -1; 
+  
+                      //outputContainer.innerHTML = txt;
+                      // $tdSche는 해당 날짜를 표시하는 테이블 셀(jQuery 객체)을 가리킵니다.
+                      // 해당 날짜의 테이블 셀에 일정을 텍스트로 표시합니다.
+                      $tdSche.eq(dateMatch).text(txt);
+                      //$tdSche.eq(dateMatch).html('<d id="textContain"></d>');
+                  }
+              }
+          }
+      }
+      
+  
+      /*//사진 추가
+      function drawSche() {
+      setData();
+      var dateMatch = null;
+  
+      // 해당 월의 첫 번째 날부터 마지막 날까지 반복 실행
+      for (var i = firstDay.getDay(); i < firstDay.getDay() + lastDay.getDate(); i++) {
+          var imgSrc = ""; // 이미지 소스 URL을 저장할 변수
+  
+          // dateKey 변수: 각 날짜를 표현하기 위한 키 값을 생성 ( 2023-09-23 형식 )
+          // year, month, i 값을 사용하여 연도, 월, 날짜를 표현
+          // 이 키 값을 사용하여 jsonData에서 해당 날짜의 데이터를 가져온다.
+          var dateKey = year + '-' + (month + 1).toString().padStart(2, '0') + '-' + (i - firstDay.getDay() + 1).toString().padStart(2, '0');
+          
+          // dateData 변수: dateKey를 사용하여 jsonData에서 해당 날짜에 대한 데이터를 가져옵니다.
+          var dateData = jsonData[dateKey]; 
+  
+          // 만약 dateData가 존재하고, 해당 날짜에 imageURL 속성이 존재하면, imgSrc 변수에 이미지 소스 URL을 할당
+          if (dateData && dateData.imageURL) {
+              imageContainer = dateData.imageURL;  // 이미지 소스 URL을 저장할 변수. 초기값은 빈 문자열로 설정
+          }
+  
+              // 각 날짜의 인덱스를 나타내는 변수로, 날짜의 인덱스는 첫 번째 날부터 시작하며 firstDay.getDay()를 더하고 1을 뺍니다.
+              dateMatch = firstDay.getDay() + i - 1;
+  
+              // 이미지를 삽입할 HTML 요소 선택
+              var imageContainer = document.getElementById("imageContainer");
+  
+              // 이미지 삽입
+              var imageElement = document.createElement("img");
+              imageElement.src = imageUrl;
+              imageElement.alt = "이미지 설명"; // 이미지에 대한 설명 (alt 속성)
+  
+              // 이미지를 요소에 추가
+              imageContainer.appendChild(imageElement);
+  
+              // $tdSche는 해당 날짜를 표시하는 테이블 셀(jQuery 객체)을 가리킵니다.
+              // eq(dateMatch)를 사용하여 해당 날짜의 테이블 셀을 선택
+              // html(...) 메서드를 사용하여 이미지를 해당 테이블 셀에 추가합니다.
+              // 해당 날짜의 테이블 셀에 이미지를 추가합니다.
+              $tdSche.eq(dateMatch).html('<div id="imageContainer"> </div>');
+      }
+  }
+      */
+  
+      //데이터 등록
+      function setData(){
+          // jsonData 객체에 날짜별 일정 데이터를 설정합니다.
+          jsonData = 
+          {
+              "2023":{
+                  "09":{
+                      "17":'메롱메롱'
+                  }
+                  ,"10":{
+                      "13":"메롱메롱"
+                      ,"26":"엄마생신"
+                      ,"25":"발표일"
+                      ,"26":"메롱메롱메롱메롱메롱"
+                  }
+              }
+          }
+      }
+  
+      /*// 이미지 등록
+      function setData(){
+          jsonData = {
+              "2023-09-13": {
+                  "imageURL": "./히든 횐.jpg"
+              },
+              "2023-09-26": {
+                  "imageURL": "./히든 횐.jpg"
+              }
+          };
+      }
+  */
+  
+    </script>
   </body>
 </html>

@@ -1,216 +1,301 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>회원가입</title>
-    <!-- 파비콘 설정 -->
-    <link rel="shortcut icon" href="./img/favicon.ico" />
-    <!-- Style 시트 연결 -->
-    <!--<link href="sign_up.css" rel="stylesheet" />-->
-    <style type="text/css">
-      @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입  - 얼굴 등록</title>
+
+  <style type="text/css">
+    @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
+      .mainbtn {
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
+          font-family: "Bagel Fat One", cursive;
+          font-size: 60px;
+          color:rgb(139, 208, 238);
+          -webkit-text-stroke: 3px rgb(0, 0, 0);
+          z-index: 1;
+          /*line-height: 100px;
+          height: 100px;*/
+      }
+      .mainbtn:hover {
+        color: rgb(109, 196, 234);
+    }
+      #header{
+        font-size: 40px;
+        margin-bottom: 30px;
+      }
+      h1, h3, h4{
+        margin-top: 0;
+        margin-bottom: 0;
+      }
       body {
           background-image: url("./img/main_background.png");
           background-size: cover;
-      }
-
-      .font {
-          font-family: "Bagel Fat One", cursive;
-          background-color: rgba(0, 0, 0, 0);
-          font-size: 30px;
-          /*border: none;*/
-      }
-
-      #header{
+          background-size: 1920px 1080px;
+          font-family:sans-serif; 
           text-align: center;
+          align-items: center;
+      }
+      h4{
+        font-size: 25px;
+        margin-bottom: 20px;
+      }
+      .container{
+        border: 3px solid black;
+        border-radius: 15px;
+        margin: 20px;
+        height: 1040px;
+        min-width: 1000px;
+        background-color: white;
+        padding: 2%;
+      }
+      .main-container{
+        display: flex;
+        justify-content: center;
+      }
+      .userinfo-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        
+        align-items: center;
+      }
+      .capface-container{
+        display: flex;
+        flex-direction: column;
+        
+        align-items: center; 
+        flex: 1;
       }
 
-      /* 박스 */
+
       #info_basic{
-          position: relative;
-          margin : 0px auto;
+          margin : 20px ;
           display: block;
           width: 80%;
           height: 120px;
+          align-items: center; 
 
           box-sizing: border-box;
           background-color: rgba(0, 0, 0, 0);
           vertical-align: top;
       }
-
-
-
-      /* 부제목 */
-      #info_basic b {
-          position: relative;
-          font-size: 20px;
-          font-family: sans-serif;
-          margin-top : 10px;
-          margin-bottom : 10px;
-          margin-left : 10px;
-      }
-
-      /* 입력박스 */
       #info_basic input {
           display: block;
-          position: relative;
-          width: 97%;
-          margin-left: 1%;
-          margin-top: 15px;
-          margin-right: 1%;
-          height: 46px;
-          text-align:left;
-          vertical-align: middle;
-          font-size: 20px;
-          border-radius: 8px; 
+          height: 50px;
+          width: 100%;
+
           padding-left: 10px;
+          vertical-align: middle;
+          font-size: 25px;
+          text-align:left;
+          border-radius: 10px; 
           background-color: rgba(255, 255, 255, 0.815);
-          border: 2px solid black;
+          border: 3px solid black;
       }
-
-      .birth{
-          
+      .sex-container{
+        display: flex;
       }
-
-      ul{
-          list-style: none;
-          
+      .sex-inne-container{
+        flex: 1;
+        font-size: 20px;
+        font-weight: 500;
+        align-items: center;
+        margin: 0px;
       }
-      li {
-          float: left;
-          margin-right: 50px;
+      #video{
+        border: 3px solid black;
+        border-radius: 15px;
+        transform: scaleX(-1); /* X 축 방향으로 반전 */
+        width: 576px;
+        height: 432px;
+        margin-left: 30px;
       }
-      li label{
-          display: inline-block;
-          font-family: sans-serif;
-      }
-      /* 버튼 */
       .botton {
           position:relative;
-          height: 50px;
-          width: 40%;
-          margin-left: 30%;
-          margin-right: 30%;
-          margin-top: 10px;
-          margin-bottom: 30px;
-          font-family: sans-serif;
-          font-size: 20px;
-          border: 2px solid black;
-          border-radius: 8px; 
+          height: 60px;
+          width: 50%;
+          margin-top: 30px;
+          font-size: 30px;
+          font-weight: bold;
+          border: 3px solid black;
+          border-radius: 10px; 
           background-color: rgb(255, 255, 255);
       }
+      .botton:hover {
+            background-color: rgba(84, 106, 83, 0.554);
+      }
+      #countdown{
+          font-size: 25px;
+          font-weight: bold;
+          color: rgba(84, 106, 83, 0.554);
+      }
+  </style>
+</head>
+<body>
 
-    </style>
-  </head>
+  <div class="container">
 
+    <header>
+      <!-- 메인 홈 버튼 -->
+      <button type="botton" class="mainbtn" onClick="location.href='index.html'">
+        <h1>청바지</h1>
+      </button>
 
-  <body>
-    <div id="wrap" class="wrapper">
-      <form method="post" name="join" id="join">
-        <!--타이틀-->
-        <!--<header>
-          <div id="header">
-            <span><h1 class="font">청바지</h1></span>
-          </div>
-        </header>-->
-        <header>
-          <div id="header">
-          <button type="botton" class="font" style="height: 100px;" onClick="location.href='index.html'">
-            <h1 style="display: flex;">청바지</h1>
-          </button>
-          </div>
-        </header>
+      <div id="header">
+        <h3>회원가입</h3>
+      </div>
+    </header>
 
+    <div class="main-container">
 
-        <div id="container">
-<!--
-          <div id="info_basic">
-            <p>아이디</p>
-            <input type="text" id="userid" required placeholder="아이디 입력(6~20자)" />
-          </div>
--->
-          <!--이름-->
-          <div id="info_basic">
-            <b>이름</b>
-            <input type="text" id="username" required placeholder="홍길동" />
-          </div>
+      <!----------------------------- 기본 정보 ----------------------------->
+      <!----------------------------- 기본 정보 ----------------------------->
+      <div class="userinfo-container">
 
-          <!--전화번호-->
-          <div id="info_basic">
-            <b>전화번호</b>
-            <input type="tel" id="usertel" required placeholder="010-1234-5678" />
-          </div>
-
-          <!--비밀번호-->
-          <div id="info_basic">
-            <b>비밀번호</b>
-            <input type="password" id="password" required placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"/>
-          </div>
-
-          <div id="info_basic">
-            <b>생년월일</b>
-            <input
-              type="date"
-              id="userbdate"
-              required
-              min="1900-01-01"
-              max="1970-01-01"
-              class="birth"
-            />
-          </div>
-
-          <div id="info_basic">
-          <b>성별</b>
-            <ul>
-              <li>
-                <label for="female">여성</label>
-                <input id="female" name="usersex" type="radio" value="strawberry" />
-              </li>
-              <li>
-                <label for="male">남성</label>
-                <input id="male" name="usersex" type="radio" value="grape" />
-              </li>
-            </ul>
-          </div>
-
-          <!--
-          <div>
-            <label for="useremail">이메일</label>
-            <input
-              type="email"
-              id="useremail"
-              required
-              placeholder="jeans@naver.com"
-            />
-          </div>
-
+        <!--이름-->
+        <div id="info_basic">
+          <h4>이름</h4>
+          <input type="text" id="nameInput" required placeholder="홍길동" />
         </div>
-      </form>
-    </div>
+
+        <!--전화번호-->
+        <div id="info_basic">
+          <h4>전화번호</h4>
+          <input type="tel" id="usertel" required placeholder="010-1234-5678" />
+        </div>
         
+        <!--생년월일-->
+        <div id="info_basic">
+          <h4>생년월일</h4>
+          <input
+            type="date"
+            id="userbdate"
+            required
+            min="1900-01-01"
+            max="1970-01-01"
+            class="birth"
+          />
+        </div>
 
+        <!--성별-->
+        <div id="info_basic">
+          <h4>성별</h4>
+          <div class="sex-container">
 
-        <fieldset>
-          <legend>약관동의</legend>
-          <ul>
-            <li>
-              <label for="apple">안녕하세요</label>
-              <input id="apple" type="checkbox" value="apple" />
-            </li>
-            <li>
-              <label for="orange">네</label>
-              <input id="orange" type="checkbox" value="orange" />
-            </li>
-            <li>
-              <label for="banana">안녕하냐고요</label>
-              <input id="banana" type="checkbox" value="banana" />
-            </li>
-          </ul>
-        </fieldset>
-      -->
+            <div class="sex-inne-container">
+              <label for="female" class="sex_name">여성</label>
+              <input id="female" name="usersex" type="radio" value="strawberry" />
+            </div>
 
-      <input type="submit" value="회원가입" class="botton"/>
-    </form>
-  </body>
+            <div class="sex-inne-container">
+              <label for="male" class="sex_name">남성</label>
+              <input id="male" name="usersex" type="radio" value="grape" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <!----------------------------- 얼굴 등록 ----------------------------->
+      <!----------------------------- 얼굴 등록 ----------------------------->
+      <div class="capface-container">
+        <h4>얼굴 등록</h4>
+        <video id="video" width="1280" height="960" autoplay></video>
+        <button id="captureButton" class="botton"> 얼굴 등록하기 </button>
+        <p id="countdown"> 잠시만 기다려 주세요 . . . <span id="timer">30</span></p>
+      </div>
+    </div>
+
+    <button id="submitButton" class="botton"> 회원 가입 </button>
+    <!--<input type="submit" value="회원가입" id="submitButton"/>-->
+
+  </div>
+  
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+  <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBHYU_ydDjrZ38b2eBTUWpeOK3l6X987Yg",
+        authDomain: "webcam-f864f.firebaseapp.com",
+        databaseURL: "https://webcam-f864f-default-rtdb.firebaseio.com",
+        projectId: "webcam-f864f",
+        storageBucket: "webcam-f864f.appspot.com",
+        messagingSenderId: "114956084002",
+        appId: "1:114956084002:web:ce19f3d930bbfada85bb7b"
+    };
+
+    // Firebase 초기화
+    firebase.initializeApp(firebaseConfig);
+
+    const storage = firebase.storage();
+
+    const video = document.getElementById('video');
+    const nameInput = document.getElementById('nameInput');
+    const captureButton = document.getElementById('captureButton');
+    const info = document.getElementById('countdown');
+    var timerElement = document.getElementById("timer");
+    let captureCount = 0;
+
+    // 웹캠을 위한 사용자 미디어 가져오기
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error('웹캠 접근 오류:', error);
+      });
+
+    // 캡처 버튼 클릭 이벤트
+    captureButton.addEventListener('click', () => {
+      // 30장을 모두 캡처한 경우
+      if (captureCount >= 30) {
+        console.log('30장을 모두 캡처했습니다.');
+        info.innerText = '얼굴 등록 완료';  // 얼굴 등록 완료 안내문구 표시
+        return;
+      }
+
+      // 캡처된 Canvas 이미지를 데이터 URL로 변환
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageDataURL = canvas.toDataURL('image/png');
+
+      // 고유한 파일명 생성
+      const name = nameInput.value || 'unknown';
+      const filename = `captured_image_${name}_${captureCount + 1}.png`;
+
+      // Firebase Storage 위치에 대한 참조
+      const storageRef = storage.ref(`dataset/${filename}`);
+
+      // 이미지 업로드
+      storageRef.putString(imageDataURL, 'data_url').then((snapshot) => {
+        console.log('이미지 업로드 성공:', snapshot);
+
+        // 업로드된 이미지의 다운로드 URL 가져오기
+        storageRef.getDownloadURL().then((url) => {
+          console.log('다운로드 URL:', url);
+        });
+
+        // 캡처 카운트 증가
+        captureCount += 1;
+
+        // 카운트 다운
+        timerElement.textContent = 30 - captureCount;
+
+        // 0.1초 후에 다음 캡처 실행
+        setTimeout(() => {
+          captureButton.click();
+        }, 100);
+      }).catch((error) => {
+        console.error('이미지 업로드 오류:', error);
+      });
+    });
+  </script>
+
+</body>
 </html>

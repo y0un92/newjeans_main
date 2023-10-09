@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase 채팅 예제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat {
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #message-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #message {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+<div id="chat"></div>
+<div id="message-container">
+    <input type="text" id="message" placeholder="메시지 입력">
+    <button onclick="sendMessage()">전송</button>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBYyEXNSq5nelVfdcvc58TVuGPJBOpQoG0",
+        authDomain: "chat-812d6.firebaseapp.com",
+        databaseURL: "https://chat-812d6-default-rtdb.firebaseio.com",
+        projectId: "chat-812d6",
+        storageBucket: "chat-812d6.appspot.com",
+        messagingSenderId: "889176853297",
+        appId: "1:889176853297:web:5079c09e366c7b04737e10",
+        measurementId: "G-883ZM3F65V"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const chatRef = firebase.database().ref('chat');
+
+    // 각 사용자에 대한 고유한 ID 생성
+    const userId = prompt("이름을 입력하세요.");
+
+    function sendMessage() {
+        const message = document.getElementById('message').value;
+        chatRef.push().set({
+            userId: userId,
+            message: message
+        });
+        document.getElementById('message').value = '';
+    }
+
+    document.getElementById('message').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();  // 엔터키에 의한 줄바꿈 방지
+            sendMessage();
+        }
+    });
+
+    chatRef.on('child_added', snapshot => {
+        const messageData = snapshot.val();
+        const message = messageData.message;
+        const sender = messageData.userId;
+
+        const chatDiv = document.getElementById('chat');
+        const messageElement = document.createElement('p');
+        messageElement.textContent = `${sender}: ${message}`;
+        chatDiv.appendChild(messageElement);
+
+        // 스크롤을 맨 아래로 이동
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    });
+</script>
+</body>
+</html>

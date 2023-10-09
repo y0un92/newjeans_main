@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입  - 얼굴 등록</title>
+</head>
+<body>
+  <h1>회원가입  - 얼굴 등록</h1>
+
+  <video id="video" width="640" height="480" autoplay></video>
+  <input type="text" id="nameInput" placeholder="이름 입력">
+  <button id="captureButton"> 얼굴 등록하기 </button>
+  <p id="info"></p>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+  <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBHYU_ydDjrZ38b2eBTUWpeOK3l6X987Yg",
+        authDomain: "webcam-f864f.firebaseapp.com",
+        databaseURL: "https://webcam-f864f-default-rtdb.firebaseio.com",
+        projectId: "webcam-f864f",
+        storageBucket: "webcam-f864f.appspot.com",
+        messagingSenderId: "114956084002",
+        appId: "1:114956084002:web:ce19f3d930bbfada85bb7b"
+    };
+
+    // Firebase 초기화
+    firebase.initializeApp(firebaseConfig);
+
+    const storage = firebase.storage();
+
+    const video = document.getElementById('video');
+    const nameInput = document.getElementById('nameInput');
+    const captureButton = document.getElementById('captureButton');
+    const info = document.getElementById('info');
+    let captureCount = 0;
+
+    // 웹캠을 위한 사용자 미디어 가져오기
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error('웹캠 접근 오류:', error);
+      });
+
+    // 캡처 버튼 클릭 이벤트
+    captureButton.addEventListener('click', () => {
+      // 30장을 모두 캡처한 경우
+      if (captureCount >= 30) {
+        console.log('30장을 모두 캡처했습니다.');
+        info.innerText = '얼굴 등록 완료';  // 얼굴 등록 완료 안내문구 표시
+        return;
+      }
+
+      // 캡처된 Canvas 이미지를 데이터 URL로 변환
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageDataURL = canvas.toDataURL('image/png');
+
+      // 고유한 파일명 생성
+      const name = nameInput.value || 'unknown';
+      const filename = `captured_image_${name}_${captureCount + 1}.png`;
+
+      // Firebase Storage 위치에 대한 참조
+      const storageRef = storage.ref(`dataset/${filename}`);
+
+      // 이미지 업로드
+      storageRef.putString(imageDataURL, 'data_url').then((snapshot) => {
+        console.log('이미지 업로드 성공:', snapshot);
+
+        // 업로드된 이미지의 다운로드 URL 가져오기
+        storageRef.getDownloadURL().then((url) => {
+          console.log('다운로드 URL:', url);
+        });
+
+        // 캡처 카운트 증가
+        captureCount += 1;
+
+        // 0.1초 후에 다음 캡처 실행
+        setTimeout(() => {
+          captureButton.click();
+        }, 100);
+      }).catch((error) => {
+        console.error('이미지 업로드 오류:', error);
+      });
+    });
+  </script>
+</body>
+</html>

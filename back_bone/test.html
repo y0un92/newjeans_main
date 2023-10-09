@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    
+    <div id="jobList"> </div> 
+    <div id="vlntrList"> </div>
+
+    <script>
+        // '제목'과 '내용' 데이터 예시
+        var titles = ["제목 1", "제목 2", "제목 3"];
+        var contents = ["내용 1", "내용 2", "내용 3"];
+
+        // 함수로 '제목'과 '내용'을 추가하는 코드 작성
+        function addItemsToList(listId, titles, contents) {
+            var listDiv = document.getElementById(listId);
+
+            for (var i = 0; i < titles.length; i++) {
+                // 새로운 '제목' 및 '내용'을 감싸는 <div> 요소 생성
+                var entryDiv = document.createElement("div");
+
+                // 새로운 '제목' 요소 생성
+                var titleElement = document.createElement("h2");
+                titleElement.textContent = titles[i];
+
+                // 새로운 '내용' 요소 생성
+                var contentElement = document.createElement("p");
+                contentElement.textContent = contents[i];
+
+                // '제목'과 '내용'을 <div>에 추가
+                entryDiv.appendChild(titleElement);
+                entryDiv.appendChild(contentElement);
+
+                // 리스트에 '제목'과 '내용'을 감싸는 <div> 추가
+                listDiv.appendChild(entryDiv);
+            }
+        }
+
+        // 'jobList'에 '일자리' 관련 데이터 추가
+        addItemsToList("jobList", jobTitles, jobContents);
+
+        // 'vlntrList'에 '봉사' 관련 데이터 추가
+        addItemsToList("vlntrList", vlntrTitles, vlntrContents);
+
+
+        // 페이지 로드 시 카운트 다운 시작
+        //window.onload = startCountdown;
+
+    </script>
+
+</body>
+</html>
